@@ -28,8 +28,21 @@
         display: none;
       }
       canvas {
-        width: 100vw;
-        height: 100vh;
+        position: fixed;
+        width: min(100vw, 133.333vh);
+        height: min(100vh, 75vw);
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1 !important;
+      }
+      #controls {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999 !important;
+        background-color: #000000;
       }
     </style>
   </head>
@@ -46,10 +59,7 @@
           You can save! Save is stored in local storage.
         </figcaption>
         <figcaption class="blockquote-footer">
-          Press page down to hide these instructions.
-        </figcaption>
-        <figcaption class="blockquote-footer">
-          Press page up to see them again.
+          Press M to hide/show these instructions
         </figcaption>
       </figure>
       <table class="table table-sm text-light" id="keyboard">
@@ -80,7 +90,7 @@
           </tr>
           <tr>
             <td>C-Stick</td>
-            <td>WASD</td>
+            <td>Arrows</td>
           </tr>
         </tbody>
       </table>
@@ -88,7 +98,6 @@
     <div id="container">
       <canvas class="emscripten" id="canvas"></canvas>
     </div>
-    <script type="text/javascript" src="sm64.js"></script>
     <script type="text/javascript">
       var Module = {
         preRun: [],
@@ -107,8 +116,8 @@
         },
         canvas: (function () {
           var canvas = document.getElementById("canvas");
-          canvas.width = 640; // Todo: how to do this from c++
-          canvas.height = 480;
+          canvas.width = window.innerWidth; // Todo: how to do this from c++
+          canvas.height = window.innerHeight;
           canvas.addEventListener(
             "webglcontextlost",
             function (e) {
@@ -123,6 +132,13 @@
       };
     </script>
     <script async type="text/javascript" src="sm64.us.f3dex2e.js"></script>
-    <script></script>
+    <script>
+      let controls = document.getElementById("controls");
+      document.body.addEventListener("keyup", function(e) {
+        if(e.key === "m") {
+          controls.style.display = controls.style.display === "none" ? "inline-block" : "none";
+        }
+      });
+    </script>
   </body>
 </html>
