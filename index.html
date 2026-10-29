@@ -88,6 +88,7 @@
     <div id="container">
       <canvas class="emscripten" id="canvas"></canvas>
     </div>
+    <script type="text/javascript" src="sm64.js"></script>
     <script type="text/javascript">
       var Module = {
         preRun: [],
@@ -106,8 +107,8 @@
         },
         canvas: (function () {
           var canvas = document.getElementById("canvas");
-          canvas.width = window.innerWidth; // Todo: how to do this from c++
-          canvas.height = window.innerHeight;
+          canvas.width = 640; // Todo: how to do this from c++
+          canvas.height = 480;
           canvas.addEventListener(
             "webglcontextlost",
             function (e) {
